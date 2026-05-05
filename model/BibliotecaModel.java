@@ -30,10 +30,28 @@ public class BibliotecaModel {
         return prestamos;
     }
 
+    public static boolean esDniValido(String dni) {
+        if (dni == null) {
+            return false;
+        }
+        String valor = dni.trim();
+        if (valor.length() != 8) {
+            return false;
+        }
+        for (int i = 0; i < valor.length(); i++) {
+            if (!Character.isDigit(valor.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public String registrarLibro(String titulo, String isbn, int stock) {
-        if (titulo == null || titulo.isEmpty() || isbn == null || isbn.isEmpty()) {
+        if (titulo == null || titulo.trim().isEmpty() || isbn == null || isbn.trim().isEmpty()) {
             return "Debe ingresar título e ISBN.";
         }
+        titulo = titulo.trim();
+        isbn = isbn.trim();
         if (stock < 0) {
             return "El stock debe ser un número mayor o igual a cero.";
         }
@@ -47,6 +65,14 @@ public class BibliotecaModel {
     }
 
     public String prestarLibro(String isbn, String dni) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            return "Debe ingresar un ISBN válido.";
+        }
+        isbn = isbn.trim();
+        if (!esDniValido(dni)) {
+            return "El DNI debe tener 8 números.";
+        }
+
         Libro libro = buscarLibro(isbn);
         if (libro == null) {
             return "No se encontró el libro con ese ISBN.";
@@ -54,19 +80,20 @@ public class BibliotecaModel {
         if (libro.getStock() <= 0) {
             return "No hay stock disponible para ese libro.";
         }
-        if (dni == null || dni.trim().isEmpty()) {
-            return "Debe ingresar un DNI válido.";
-        }
 
+        String dniValido = dni.trim();
         libro.setStock(libro.getStock() - 1);
-        libro.setUltimoDNI(dni.trim());
-        prestamos.add(new Prestamo(isbn, dni.trim(), LocalDateTime.now().format(FORMATO_FECHA)));
+        libro.setUltimoDNI(dniValido);
+        prestamos.add(new Prestamo(isbn, dniValido, LocalDateTime.now().format(FORMATO_FECHA)));
         guardarBaseDatos();
-        return "Préstamo realizado a DNI " + dni.trim() + ".";
+        return "Préstamo realizado a DNI " + dniValido + ".";
     }
 
     public String devolverLibro(String isbn) {
-        Libro libro = buscarLibro(isbn);
+        if (isbn == null || isbn.trim().isEmpty()) {
+            return "Debe ingresar un ISBN válido.";
+        }
+        Libro libro = buscarLibro(isbn.trim());
         if (libro == null) {
             return "No se encontró el libro con ese ISBN.";
         }
