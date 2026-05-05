@@ -1,0 +1,10 @@
+{
+  "libros": [
+    {"titulo":"Java", "isbn":"111", "stock":3, "ultimoDNI":""},
+    {"titulo":"Redes", "isbn":"222", "stock":0, "ultimoDNI":""},
+    {"titulo":"BD", "isbn":"333", "stock":2, "ultimoDNI":""},
+    {"titulo":"Principito", "isbn":"12345", "stock":5, "ultimoDNI":""}
+  ],
+  "prestamos": [
+  ]
+}
