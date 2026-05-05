@@ -1,0 +1,13 @@
+{
+  "libros": [
+    {"titulo":"Java", "isbn":"111", "stock":2, "ultimoDNI":"12345678"},
+    {"titulo":"Redes", "isbn":"222", "stock":0, "ultimoDNI":""},
+    {"titulo":"BD", "isbn":"333", "stock":2, "ultimoDNI":""},
+    {"titulo":"Principito", "isbn":"12345", "stock":5, "ultimoDNI":"70545035"}
+  ],
+  "prestamos": [
+    {"isbn":"12345", "dni":"70545035", "fecha":"2026-05-05 16:11"},
+    {"isbn":"111", "dni":"131156156161616516165156", "fecha":"2026-05-05 16:15"},
+    {"isbn":"111", "dni":"12345678", "fecha":"2026-05-05 16:18"}
+  ]
+}
